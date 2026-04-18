@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clear EduTrack Session</title>
+  <style>
+    body { font-family: system-ui; max-width: 600px; margin: 50px auto; padding: 20px; }
+    button { background: #ef4444; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+    button:hover { background: #dc2626; }
+    .success { background: #10b981; color: white; padding: 12px; border-radius: 8px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🔥 Clear EduTrack Auth Session</h1>
+  <p>Fixes "Invalid Refresh Token" + profile undefined.</p>
+  <ol>
+    <li>Save as clear-session.html → open in browser</li>
+    <li>Click button → allows storage clear</li>
+    <li>Reload localhost:5173 → fresh login</li>
+  </ol>
+  <button onclick="clearAll()">🚀 CLEAR SESSION &amp; RELOAD</button>
+  <div id="status"></div>
+
+  <script>
+    async function clearAll() {
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+        // Clear cookies for localhost
+        document.cookie.split(";").forEach(c => { 
+          document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+        });
+        console.log('✅ Session cleared!');
+        document.getElementById('status').innerHTML = '<div class="success">✅ Cleared! <br>Reload app → login fresh.</div>';
+        setTimeout(() => location.reload(), 1500);
+      } catch (e) {
+        console.error(e);
+        alert('Allow paste/storage access first!');
+      }
+    }
+  </script>
+</body>
+</html>

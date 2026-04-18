@@ -1,0 +1,1 @@
+export { MarksEntry } from './index';
